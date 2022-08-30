@@ -25,7 +25,7 @@ class OrderController extends Controller
             $response = $client->get('https://pro.rajaongkir.com/api/province',
             [
                 'headers' => [
-                    'key' => '38f292ee769812df9e879857a1d07e7a',
+                    'key' => env('API_KEY'),
                 ]
                 ]);
         } catch (RequestException $e) {
@@ -51,7 +51,7 @@ class OrderController extends Controller
             $response = $client->get('https://pro.rajaongkir.com/api/city',
             [
                 'headers' => [
-                    'key' => '38f292ee769812df9e879857a1d07e7a',
+                    'key' => env('API_KEY'),
                 ]
                 ]);
         } catch (RequestException $e) {
@@ -79,7 +79,7 @@ class OrderController extends Controller
             $response = $client->get('https://pro.rajaongkir.com/api/subdistrict?city=78',
             [
                 'headers' => [
-                    'key' => '38f292ee769812df9e879857a1d07e7a',
+                    'key' => env('API_KEY'),
                 ]
                 ]);
         } catch (RequestException $e) {
@@ -109,7 +109,7 @@ class OrderController extends Controller
             [
                 'body' =>   'origin='.$request->origin_city.'&originType=city&destination='.$request->destination_city.'&destinationType=city&weight='.$request->weight.'&courier='.$request->courier.'',
                 'headers' => [
-                    'key' => '38f292ee769812df9e879857a1d07e7a',
+                    'key' => env('API_KEY'),
                     'content-type' => 'application/x-www-form-urlencoded',
                 ],
             ]
