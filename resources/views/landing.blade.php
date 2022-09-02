@@ -89,10 +89,10 @@
                                 <div class="col-md-3 col-12">
                                     <div class="form-group position-relative has-icon-left mb-4">
                                         <label for="" class="mb-1">Origin City :</label>
-                                        <input type="text" name="origin_city" id="id_origin" hidden>
+                                        <input type="text" name="origin_city" id="id_origin" hidden required>
                                         <input type="text" id="origin"
                                             class="form-control form-control-xl @error('origin_city') is-invalid @enderror"
-                                            placeholder="Origin city" value="{{ old('origin_city') }}">
+                                            placeholder="Origin city" required>
                                         @error('origin_city')
                                             <div class="invalid-feedback d-block">
                                                 {{ $message }}
@@ -103,10 +103,11 @@
                                 <div class="col-md-3 col-12">
                                     <div class="form-group position-relative has-icon-left mb-4">
                                         <label for="" class="mb-1">Destination City :</label>
-                                        <input type="text" name="destination_city" id="id_destination" hidden>
+                                        <input type="text" name="destination_city" id="id_destination" hidden
+                                            required>
                                         <input type="text" id="destination"
                                             class="form-control form-control-xl @error('destination_city') is-invalid @enderror"
-                                            placeholder="Destination city" value="{{ old('destination_city') }}">
+                                            placeholder="Destination city" required>
                                         @error('destination_city')
                                             <div class="invalid-feedback d-block">
                                                 {{ $message }}
@@ -119,7 +120,7 @@
                                         <label for="" class="mb-1">Weight :</label>
                                         <input type="number" name="weight"
                                             class="form-control form-control-xl @error('weight') is-invalid @enderror"
-                                            placeholder="gram" value="{{ old('weight') }}">
+                                            placeholder="gram" value="{{ old('weight') }}" required>
                                         @error('weight')
                                             <div class="invalid-feedback d-block">
                                                 {{ $message }}
@@ -130,12 +131,22 @@
                                 <div class="col-md-2 col-12">
                                     <div class="form-group position-relative has-icon-left mb-4">
                                         <label for="" class="mb-1">Courier :</label>
-                                        <select name="courier" class="form-select" id="">
+                                        <select name="courier"
+                                            class="form-select @error('courier')
+                                        is-invalid
+                                        @enderror"
+                                            id="" required>
                                             <option value="" selected disabled>--courier--</option>
                                             @foreach ($courier as $item)
-                                                <option value="{{ $item }}">{{ $item }}</option>
+                                                <option {{ old('courier') == $item ? 'selected' : '' }}
+                                                    value="{{ $item }}">{{ $item }}</option>
                                             @endforeach
                                         </select>
+                                        @error('courier')
+                                            <div class="invalid-feedback d-block">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-1 col-12 pt-4 pr-1">

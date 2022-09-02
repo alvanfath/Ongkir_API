@@ -104,6 +104,13 @@ class OrderController extends Controller
     public function progressShipping(Request $request){
         $client = new Client();
 
+        $request->validate([
+            'origin_city' => 'required',
+            'destination_city' => 'required',
+            'weight' => 'required|numeric',
+            'courier' => 'required',
+        ]);
+
         try {
             $response = $client->request('POST','https://pro.rajaongkir.com/api/cost',
             [
@@ -121,12 +128,18 @@ class OrderController extends Controller
         $result = json_decode($json, true);
 
         $origin = $result["rajaongkir"]["origin_details"]["city_name"];
-        $destination = $result["rajaongkir"]["origin_details"]["city_name"];
+        $destination = $result["rajaongkir"]["destination_details"]["city_name"];
+        $courier = $result["rajaongkir"]["query"]["courier"];
+        $data = $result["rajaongkir"]["results"][0]["costs"];
+        $weight = $request->weight;
 
+        // dd($data);
         return view('get')->with([
-            'result' => $result,
             'origin' => $origin,
-            'destination' => $destination
+            'destination' => $destination,
+            'courier' => $courier,
+            'data' => $data,
+            'weight' => $weight,
         ]);
 
     }
@@ -136,7 +149,4 @@ class OrderController extends Controller
         $city = City::where('name', 'like', "%" . $keyword . "%")->get();
         return response()->json($city);
     }
-
-
-
 }

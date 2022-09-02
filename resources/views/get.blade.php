@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('template/style.css') }}" />
     {{-- jquery --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+
     <style>
         .navbar {
             background-color: #435EBE;
@@ -59,31 +60,44 @@
         <div class="container">
             <div class="row align-items-center bg-light text-dark p-3">
                 <div class="col-lg-12 col-md-12 col-12 text-center mb-3">
-                    <h3>Cek ongkir</h3>
+                    <h3>Check postage</h3>
+                </div>
+                <div class="col-lg-12 col-md-12 col-12 mb-3">
+                    <span>From : {{$origin}}</span>
+                    <br>
+                    <span>To : {{$destination}}</span>
+                    <br>
+                    <span>Weight : {{number_format($weight)}} grams</span>
+                    <br>
+                    <span>Courier : {{$courier}}</span>
                 </div>
             </div>
             <section class="row">
                 <div class="col-12 col-lg-12">
                     <div class="row align-items-center bg-light text-dark p-2">
                         <div class="row">
-                            <table class="table table-striped align-items-center">
+                            <table class="table table-striped table-hover align-items-center" id="dataTable">
                                 <thead class="table-info">
                                     <tr>
-                                        <th>Number</th>
                                         <th>Service name</th>
+                                        <th>Description</th>
                                         <th>Price</th>
                                         <th>ETD</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for($i=0; $i<count($result["rajaongkir"]["results"][0]["costs"]); $i++){ ?>
-                                    <tr>
-                                        <td><?php echo $i ?></td>
-                                        <td><?php echo $result['rajaongkir']['results'][0]['costs'][$i]['service']; ?> </td>
-                                        <td><?php echo $result['rajaongkir']['results'][0]['costs'][$i]['cost'][0]['value']; ?></td>
-                                        <td><?php echo $result['rajaongkir']['results'][0]['costs'][$i]['cost'][0]['etd']; ?></td>
-                                    </tr>
-                                    <?php } ?>
+                                    @forelse ($data as $item)
+                                        <tr>
+                                            <td>{{ $item['service'] }}</td>
+                                            <td>{{ $item['description'] }}</td>
+                                            <td>Rp {{ number_format($item['cost'][0]['value']) }}</td>
+                                            <td>{{ $item['cost'][0]['etd'] }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center">Didn't find any service</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -93,7 +107,6 @@
         </div>
     </section>
     <!-- End header Area -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
