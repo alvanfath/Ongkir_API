@@ -126,7 +126,6 @@ class OrderController extends Controller
         }
         $json = $response->getBody()->getContents();
         $result = json_decode($json, true);
-
         $origin = $result["rajaongkir"]["origin_details"]["city_name"];
         $destination = $result["rajaongkir"]["destination_details"]["city_name"];
         $courier = $result["rajaongkir"]["query"]["courier"];

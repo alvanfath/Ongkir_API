@@ -77,7 +77,7 @@
         <div class="container">
             <div class="row align-items-center bg-light text-dark p-3">
                 <div class="col-lg-12 col-md-12 col-12 text-center mb-3">
-                    <h3>Cek ongkir</h3>
+                    <h3>Cek Postage</h3>
                 </div>
             </div>
             <section class="row">
@@ -160,7 +160,6 @@
                         </form>
                     </div>
             </section>
-
         </div>
     </section>
     <!-- End header Area -->
